@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambrosia | Fine Dining Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fffaf5;
+      color: #2d2d2d;
+    }
+
+    :root {
+      --primary: #d32f2f;
+      --secondary: #ff8c42;
+      --dark: #1e1e2a;
+      --light: #fff5eb;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-content h1 {
+      font-size: 4.5rem;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #b71c1c;
+      transform: translateY(-3px);
+    }
+
+    /* Menu Section */
+    .menu {
+      padding: 5rem 5%;
+      background: white;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 3rem;
+    }
+
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      padding: 0.8rem 2rem;
+      background: none;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .menu-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      border-bottom: 1px dashed #ddd;
+    }
+
+    .menu-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .item-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-info p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .price {
+      color: var(--primary);
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    /* About Section */
+    .about {
+      padding: 5rem 5%;
+      background: var(--light);
+    }
+
+    .about-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-img {
+      background: url('https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=600');
+      height: 400px;
+      background-size: cover;
+      border-radius: 20px;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Reservation */
+    .reservation {
+      padding: 5rem 5%;
+      background: var(--dark);
+      color: white;
+    }
+
+    .reservation form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .reservation input,
+    .reservation select,
+    .reservation textarea {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    .stats{
+display:flex;
+justify-content:center;
+gap:30px;
+padding:60px 5%;
+flex-wrap:wrap;
+}
+
+.stat-box{
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+text-align:center;
+width:220px;
+}
+
+.stat-box h2{
+color:#d32f2f;
+font-size:2.5rem;
+}
+
+.whatsapp-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:60px;
+height:60px;
+background:#25D366;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+color:white;
+text-decoration:none;
+z-index:9999;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+.menu-item{
+transition:.3s;
+}
+
+.menu-item:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 30px rgba(0,0,0,.1);
+border-radius:15px;
+}
+html{
+scroll-behavior:smooth;
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+
+.gallery-grid img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  border-radius:20px;
+}
+
+.gallery-grid img:hover{
+  transform:scale(1.03);
+}
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+        gap: 1rem;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .hamburger {
+        display: block;
+      }
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      .form-group {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">AMBROSIA</div>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reservation">Reservation</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
+  <a href="#reservation" class="btn">Book a Table</a>
+  <a href="#menu" class="btn" style="background:#ff8c42;">View Menu</a>
+</div>
+  </section>
+
+  <section id="menu" class="menu">
+    <h2 class="section-title">Our Signature Menu</h2>
+    <div class="menu-categories">
+      <button class="category-btn active" data-category="all">All</button>
+      <button class="category-btn" data-category="appetizers">Appetizers</button>
+      <button class="category-btn" data-category="mains">Main Courses</button>
+      <button class="category-btn" data-category="desserts">Desserts</button>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="about-container">
+      <div class="about-img"></div>
+      <div class="about-text">
+        <h2>A Culinary Legacy Since 1985</h2>
+        <p>Ambrosia brings together the finest ingredients, masterful techniques, and warm hospitality to create unforgettable dining experiences. Our chefs craft each dish with passion and precision, celebrating the rich flavors of international cuisine with a contemporary twist.</p>
+        <p>Every meal at Ambrosia tells a story of dedication, quality, and the pursuit of perfection.</p>
+      </div>
+    </div>
+  </section>
+
+<section class="stats">
+  <div class="stat-box">
+    <h2>5000+</h2>
+    <p>Happy Customers</p>
+  </div>
+
+  <div class="stat-box">
+    <h2>15+</h2>
+    <p>Years Experience</p>
+  </div>
+
+  <div class="stat-box">
+    <h2>50+</h2>
+    <p>Signature Dishes</p>
+  </div>
+</section>
+
+<section id="gallery" class="menu">
+  <h2 class="section-title">Restaurant Gallery</h2>
+
+  <div class="gallery-grid">
+    <img src="dish1.jpg" alt="">
+    <img src="dish2.jpg" alt="">
+    <img src="dish3.jpg" alt="">
+    <img src="dish4.jpg" alt="">
+  </div>
+</section>
+
+
+<section class="about">
+
+<h2 class="section-title">Customer Reviews</h2>
+
+<div class="menu-grid">
+
+<div class="menu-item">
+⭐⭐⭐⭐⭐
+Amazing food and service.
+</div>
+
+<div class="menu-item">
+⭐⭐⭐⭐⭐
+Best restaurant experience.
+</div>
+
+<div class="menu-item">
+⭐⭐⭐⭐⭐
+Highly recommended.
+</div>
+
+</div>
+
+</section>
+
+
+  <section id="reservation" class="reservation">
+    <h2 class="section-title" style="color: white;">Make a Reservation</h2>
+    <form id="reservationForm">
+      <div class="form-group">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email Address" required>
+      </div>
+      <div class="form-group">
+        <input type="tel" placeholder="Phone Number">
+        <input type="date" required>
+      </div>
+      <div class="form-group">
+        <input type="time" required>
+        <select>
+          <option>2 People</option>
+          <option>4 People</option>
+          <option>6 People</option>
+          <option>8+ People</option>
+        </select>
+      </div>
+      <textarea rows="3" placeholder="Special Requests (Allergies, Occasion, etc.)"></textarea>
+      <button type="submit" class="btn" style="width: 100%;">Book Now</button>
+    </form>
+  </section>
+
+<a href="https://wa.me/923196690458" class="whatsapp-btn">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+
+  
+<footer>
+<h3>AMBROSIA</h3>
+
+<p>📞 +92 319 6690458</p>
+
+<p>📧 info@ambrosia.com</p>
+
+<p>📍 Karachi, Pakistan</p>
+
+<p style="margin-top:15px;">
+© 2025 Ambrosia Restaurant
+</p>
+
+ 
+</footer>
+
+  <script>
+    const menuItems = {
+      appetizers: [
+        { name: "Truffle Arancini", desc: "Crispy risotto balls with black truffle", price: "$16", img: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=100" },
+        { name: "Burrata Caprese", desc: "Creamy burrata with heirloom tomatoes", price: "$18", img: "https://images.pexels.com/photos/1351238/pexels-photo-1351238.jpeg?auto=compress&cs=tinysrgb&w=100" }
+      ],
+      mains: [
+        { name: "Grilled Ribeye Steak", desc: "USDA prime beef with herb butter", price: "$42", img: "https://images.pexels.com/photos/675951/pexels-photo-675951.jpeg?auto=compress&cs=tinysrgb&w=100" },
+        { name: "Lobster Risotto", desc: "Maine lobster, saffron arborio rice", price: "$38", img: "https://images.pexels.com/photos/4635535/pexels-photo-4635535.jpeg?auto=compress&cs=tinysrgb&w=100" }
+      ],
+      desserts: [
+        { name: "Molten Chocolate Cake", desc: "Warm chocolate lava with vanilla ice cream", price: "$12", img: "https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=100" },
+        { name: "Crème Brûlée", desc: "Classic vanilla bean custard", price: "$10", img: "https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=100" }
+      ]
+    };
+
+    function renderMenu(category) {
+      let items = [];
+      if (category === 'all') {
+        items = [...menuItems.appetizers, ...menuItems.mains, ...menuItems.desserts];
+      } else {
+        items = menuItems[category] || [];
+      }
+      const menuGrid = document.getElementById('menuGrid');
+      menuGrid.innerHTML = items.map(item => `
+        <div class="menu-item">
+          <img src="${item.img}" alt="${item.name}">
+          <div class="item-info">
+            <h3>${item.name}</h3>
+            <p>${item.desc}</p>
+            <div class="price">${item.price}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderMenu(btn.dataset.category);
+      });
+    });
+
+    renderMenu('all');
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('navMenu').classList.toggle('active');
+    });
+
+    document.getElementById('reservationForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you! Your reservation has been confirmed. We look forward to serving you.');
+    });
+  </script>
+</body>
+</html>
